@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CardChecker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card" id="app">
+
+        <!-- Здесь будет выводиться ЛОГОТИП БАНКА -->
+        <div class="bank">
+            <img src="img/banks/sberbank.png">
+        </div>
+
+        <!-- Поле для ввода НОМЕРА КАРТЫ -->
+        <div class="number-container" >
+            <input type="text" v-on:keyup="help" v-bind:class="[idk ? 'input-ok' : 'input-err']" v-model="num" placeholder="Номер карты">
+            <div class="status" v-bind:class="[idk ? 'status-ok' : 'status-err']"></div>
+        </div>
+
+        <!-- Поле для ввода ИМЕНИ ДЕРЖАТЕЛЯ -->
+        <div class="name-container">
+            <input type="text" placeholder="Имя держателя">
+            <div class="status"></div>
+        </div>
+
+        <!-- Логотип ПЛАТЕЖНОЙ СИСТЕМЫ -->
+        <div class="pay-system">
+            <img v-bind:src="logo">
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        "use strict"
+
+        const app = new Vue({
+        el: '#app',
+            data: {
+                num : "",
+                logo : "",
+            },
+            methods: {  
+                help: function(){
+                    if(this.num[0] == 2) this.logo = "img/systems/mir.png";
+                    if(this.num[0] == 3) this.logo = "img/systems/american-exp.png";
+                    if(this.num[0] == 4) this.logo = "img/systems/visa.png";
+                    if(this.num[0] == 5) this.logo = "img/systems/mastercard.png";
+                    if(this.num[0] == 6) this.logo = "img/systems/maestro.png";
+                    console.log(this.idk);
+                }
+            },
+            computed : {
+                idk : function(){
+                    if(this.num.length == 16){
+                        return true;
+                    }
+                    else return false;
+                    alert(this.num.length);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
